@@ -8,9 +8,9 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         font-family: ${({ theme }) => theme.fontFamily.body};
-        font-size: ${({theme}) => theme.fontSize.textMd};
+        font-size: ${({ theme }) => theme.fontSize.textMd};
 	    line-height: 1;
-        background-color: ${({ theme }) => theme.colors.bgBody}
+        background-color: ${({ theme }) => theme.colors.clrNeutral200}
     }
     ol, ul {
 	    list-style: none;

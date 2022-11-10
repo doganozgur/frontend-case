@@ -11,21 +11,21 @@ function App() {
   return (
     <>
       <Header />
-        <Container>
-          <StyledApp>
-            {/* Filtering */}
-            <Column>
-              <Sorting />
-              <Filter title="Brands" />
-              <Filter title="Tags" />
-            </Column>
-            {/* Products listing */}
-            <div>Products listing</div>
-            {/* Cart */}
-            <Cart />
-          </StyledApp>
-          <Footer />
-        </Container>
+      <Container>
+        <StyledApp>
+          {/* Filtering */}
+          <Column>
+            <Sorting />
+            <Filter title="Brands" />
+            {/* <Filter title="Tags" /> */}
+          </Column>
+          {/* Products listing */}
+          <div>Products listing</div>
+          {/* Cart */}
+          <Cart />
+        </StyledApp>
+        <Footer />
+      </Container>
     </>
   );
 }

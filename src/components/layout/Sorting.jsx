@@ -1,18 +1,24 @@
 import { Card } from "../styles/Card";
 import { SortingItem } from "../styles/SortingItem";
 import { CardtTitle } from "../styles/CardTitle";
-import Input from "../controls/Input";
+import { useState } from "react";
+import { Label, Span, StyledInput } from "../styles/Input.styled";
+import { Icon } from "../../Icons";
 
-const inputValues = [
-  {id: "1", label:"Price low to high", type:"radio", name: "sorting", value: "low-to-high"},
-  {id: "2", label:"Price high to low", type:"radio", name: "sorting", value: "high-to-low"},
-  {id: "3", label:"New to old", type:"radio", name: "sorting", value: "new-to-old"},
-  {id: "4", label:"Old to new", type:"radio", name: "sorting", value: "old-to-new"},
-]
-
-const title="Sorting";
+const title = "Sorting";
 
 export default function Sorting() {
+  const [selectedInput, setSelectedInput] = useState("newToOld");
+
+  /**
+   * @func handleSelectChange
+   * Pass the current input value into the "selectedInput" state variable
+   * @param {event} event onChange event parameter from the input
+   */
+  const handleSelectChange = (event) => {
+    const value = event.target.value;
+    setSelectedInput(value);
+  };
 
   return (
     <>
@@ -20,16 +26,70 @@ export default function Sorting() {
         <CardtTitle>{title}</CardtTitle>
         <div>
           <ul>
-            {inputValues.map(({id, label, type, name, value}) => (
-              <SortingItem key={id}>
-                <Input
-                  label={label}
-                  type={type}
-                  name={name}
-                  value={value}
+            <SortingItem>
+              <Label htmlFor="lowToHigh">
+                <Span type="radio" active={selectedInput === "lowToHigh"}>
+                  <Icon name="check" width="10" height="8" />
+                </Span>
+                Price low to high
+                <StyledInput
+                  id="lowToHigh"
+                  type="radio"
+                  name="sorting"
+                  value="lowToHigh"
+                  checked={selectedInput === "lowToHigh"}
+                  onChange={handleSelectChange}
                 />
-              </SortingItem>
-            ))}
+              </Label>
+            </SortingItem>
+            <SortingItem>
+              <Label htmlFor="highToLow">
+                <Span type="radio" active={selectedInput === "highToLow"}>
+                  <Icon name="check" width="10" height="8" />
+                </Span>
+                Price high to low
+                <StyledInput
+                  id="highToLow"
+                  type="radio"
+                  name="deneme"
+                  value="highToLow"
+                  checked={selectedInput === "highToLow"}
+                  onChange={handleSelectChange}
+                />
+              </Label>
+            </SortingItem>
+            <SortingItem>
+              <Label htmlFor="newToOld">
+                <Span type="radio" active={selectedInput === "newToOld"}>
+                  <Icon name="check" width="10" height="8" />
+                </Span>
+                New to old
+                <StyledInput
+                  id="newToOld"
+                  type="radio"
+                  name="sorting"
+                  value="newToOld"
+                  checked={selectedInput === "newToOld"}
+                  onChange={handleSelectChange}
+                />
+              </Label>
+            </SortingItem>
+            <SortingItem>
+              <Label htmlFor="oldToNew">
+                <Span type="radio" active={selectedInput === "oldToNew"}>
+                  <Icon name="check" width="10" height="8" />
+                </Span>
+                Old to new
+                <StyledInput
+                  id="oldToNew"
+                  type="radio"
+                  name="sorting"
+                  value="oldToNew"
+                  checked={selectedInput === "oldToNew"}
+                  onChange={handleSelectChange}
+                />
+              </Label>
+            </SortingItem>
           </ul>
         </div>
       </Card>
