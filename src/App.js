@@ -17,7 +17,7 @@ function App() {
           <Column>
             <Sorting />
             <Filter title="Brands" />
-            {/* <Filter title="Tags" /> */}
+            <Filter title="Tags" />
           </Column>
           {/* Products listing */}
           <div>Products listing</div>

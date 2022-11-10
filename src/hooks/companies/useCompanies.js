@@ -7,7 +7,9 @@ import { httpGetCompanies } from "./company.requests";
  */
 export const useCompanies = () => {
   const [companies, setCompanies] = useState(null);
-  // Get companies from httpGetCompanies function
+
+  // Create a memoized function that is remembered
+  // on first and subsequent re-renders
   const getCompanies = useCallback(async () => {
     const fetchedCompanies = await httpGetCompanies();
     setCompanies(fetchedCompanies);
