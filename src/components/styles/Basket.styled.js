@@ -13,7 +13,7 @@ export const Product = styled.div`
   justify-content: space-between;
   > div {
   }
-  border-bottom: 1px solid ${({ theme }) => theme.colors.clrNeutral400};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.clrNeutral300};
   padding-block: 1.0625rem;
   :first-child {
     padding-block-start: 0;

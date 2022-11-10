@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pill from "../controls/Pill";
-import {
-  Main,
-  PillHolder,
-  ProductsCard,
-  Title,
-} from "../styles/ProductsListing";
-import Product from "./Product";
+import { Main, PillHolder, Title } from "../styles/ProductsListing";
 import { useItems } from "../../hooks/items/useItems";
 import Pagination from "../controls/Pagination";
+import Products from "./Products";
 
 export default function ProductsListing() {
   const [active, setActive] = useState("active");
+  // const [currentProducts, setCurrentProducts] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(16);
 
   // Get items
   const items = useItems();
 
   console.log(items);
+
+  const indexOfLastPost = currentPage * itemsPerPage;
+  const indexOfFirstPost = indexOfLastPost - itemsPerPage;
+  const currentProducts = items?.data?.items?.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Main>
@@ -31,16 +38,13 @@ export default function ProductsListing() {
         </li>
       </PillHolder>
       {/* Products listing */}
-      <ProductsCard>
-        {items ? (
-          items?.data?.items
-            ?.slice(0, 16)
-            .map((item) => <Product key={item?.added} productInfo={item} />)
-        ) : (
-          <div>Loading...</div>
-        )}
-      </ProductsCard>
-      <Pagination />
+      <Products products={currentProducts} />
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalPosts={items?.data?.items?.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
     </Main>
   );
 }

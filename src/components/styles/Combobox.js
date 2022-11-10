@@ -11,17 +11,17 @@ export const ComboboxStyled = styled.div`
 `;
 
 export const Searcbar = styled.input`
-  border: 2px solid ${({ theme }) => theme.colors.clrNeutral500};
+  border: 2px solid ${({ theme }) => theme.colors.clrNeutral400};
   width: 100%;
   height: 3rem;
   padding: 0.75rem 1rem;
   border-radius: 2px;
-  color: ${({ theme }) => theme.colors.clrNeutral800};
+  color: ${({ theme }) => theme.colors.clrNeutral700};
   margin-bottom: 1.0625rem;
   :focus {
     outline: none;
   }
   ::placeholder {
-    color: ${({ theme }) => theme.colors.clrNeutral600};
+    color: ${({ theme }) => theme.colors.clrNeutral500};
   }
 `;
