@@ -8,6 +8,7 @@ import {
 } from "../styles/ProductsListing";
 import Product from "./Product";
 import { useItems } from "../../hooks/items/useItems";
+import Pagination from "../controls/Pagination";
 
 export default function ProductsListing() {
   const [active, setActive] = useState("active");
@@ -39,6 +40,7 @@ export default function ProductsListing() {
           <div>Loading...</div>
         )}
       </ProductsCard>
+      <Pagination />
     </Main>
   );
 }

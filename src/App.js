@@ -1,7 +1,7 @@
 import Header from "./components/layout/Header";
 import Sorting from "./components/layout/Sorting";
 import Filter from "./components/layout/Filter";
-import Cart from "./components/layout/Cart";
+import Basket from "./components/layout/Basket";
 import { StyledApp } from "./components/styles/App.styled";
 import { Container } from "./components/styles/Container.styled";
 import { Column } from "./components/styles/Column";
@@ -22,8 +22,8 @@ function App() {
           </Column>
           {/* Products listing */}
           <ProductsListing />
-          {/* Cart */}
-          <Cart />
+          {/* Basket */}
+          <Basket />
         </StyledApp>
         <Footer />
       </Container>
