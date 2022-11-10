@@ -8,7 +8,8 @@ const theme = {
   colors: {
     primary: "#1EA4CE",
     secondary: "#147594",
-    clrNeutral100: "#FFF",
+    clrBlack: "#000",
+    clrWhite: "#FFF",
     clrNeutral200: "#FAFAFA",
     clrNeutral300: "#DFDEE2",
     clrNeutral400: "#F4F4F4",
@@ -16,8 +17,9 @@ const theme = {
     clrNeutral600: "#A8A8A8",
     clrNeutral700: "#6F6F6F",
     clrNeutral800: "#525252",
-    clrNeutral900: "#000",
-    searchbarBorder: "#E0E0E0",
+    clrNeutral900: "#191919",
+    clrPurple100: "#F2F0FD",
+    clrPurple200: "#F3F0FE",
   },
   fontFamily: {
     body: "'Open Sans', sans-serif",

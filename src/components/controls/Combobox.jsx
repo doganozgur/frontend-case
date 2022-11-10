@@ -34,8 +34,6 @@ export default function Combobox({ type, options, title }) {
     setSearchTerm(value);
   };
 
-  console.log(selectedInputs);
-
   return (
     <ComboboxStyled>
       {/* Search bar */}

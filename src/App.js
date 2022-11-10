@@ -6,6 +6,7 @@ import { StyledApp } from "./components/styles/App.styled";
 import { Container } from "./components/styles/Container.styled";
 import { Column } from "./components/styles/Column";
 import Footer from "./components/layout/Footer";
+import ProductsListing from "./components/layout/ProductsListing";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             <Filter title="Tags" />
           </Column>
           {/* Products listing */}
-          <div>Products listing</div>
+          <ProductsListing />
           {/* Cart */}
           <Cart />
         </StyledApp>
