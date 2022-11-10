@@ -24,7 +24,7 @@ export const Price = styled.p`
 `;
 
 export const Title = styled.p`
-  color: ${({ theme }) => theme.colors.clrNeutral800};
+  color: ${({ theme }) => theme.colors.clrNeutral900};
   margin-block-end: 0.5625rem;
   font-weight: 600;
   height: 2.5rem;

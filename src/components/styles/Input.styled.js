@@ -17,7 +17,7 @@ export const Span = styled.span`
   justify-content: center;
   border-radius: ${({ type }) => (type === "radio" ? "100vh" : "2px")};
   border: ${({ type, theme }) =>
-    type === "radio" && `2px solid ${theme.colors.clrNeutral200}`};
+    type === "radio" && `2px solid ${theme.colors.clrNeutral300}`};
   box-shadow: ${({ type }) =>
     type === "checkbox" && `0px 1px 7px rgba(93, 56, 192, 0.4)`};
   border-color: ${({ theme, active }) => active && ` ${theme.colors.primary}`};
