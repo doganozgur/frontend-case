@@ -4,7 +4,7 @@ export const Main = styled.main``;
 
 export const Title = styled.h2`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.colors.clrNeutral700};
+  color: ${({ theme }) => theme.colors.clrNeutral600};
   margin-bottom: 1rem;
 `;
 

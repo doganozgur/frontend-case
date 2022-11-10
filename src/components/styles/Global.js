@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
         font-family: ${({ theme }) => theme.fontFamily.body};
         font-size: ${({ theme }) => theme.fontSize.textMd};
 	    line-height: 1.125rem;
-        background-color: ${({ theme }) => theme.colors.clrNeutral200}
+        background-color: ${({ theme }) => theme.colors.clrNeutral100}
     }
     ol, ul {
 	    list-style: none;
