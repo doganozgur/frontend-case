@@ -36,8 +36,8 @@ export default function ProductsListing() {
       <Title>Products</Title>
       {/* Filter by category */}
       <PillHolder>
-        {categories?.map((category) => (
-          <li>
+        {categories?.map((category, _i) => (
+          <li key={_i}>
             <PillStyled
               active={selectedCategory === category}
               onClick={() => {

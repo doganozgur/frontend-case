@@ -5,6 +5,14 @@ import { useState } from "react";
 import { Label, Span, StyledInput } from "../styles/Input.styled";
 import { Icon } from "../../Icons";
 
+// Sorting list data
+const sortingListData = [
+  { id: 1, title: "Price low to high", value: "lowToHigh" },
+  { id: 2, title: "Price high to low", value: "highToLow" },
+  { id: 3, title: "New to old", value: "newToOld" },
+  { id: 4, title: "Old to new", value: "oldToNew" },
+];
+
 const title = "Sorting";
 
 export default function Sorting() {
@@ -26,70 +34,24 @@ export default function Sorting() {
         <CardtTitle>{title}</CardtTitle>
         <div>
           <ul>
-            <SortingItem>
-              <Label htmlFor="lowToHigh">
-                <Span type="radio" active={selectedInput === "lowToHigh"}>
-                  <Icon name="check" width="10" height="8" />
-                </Span>
-                Price low to high
-                <StyledInput
-                  id="lowToHigh"
-                  type="radio"
-                  name="sorting"
-                  value="lowToHigh"
-                  checked={selectedInput === "lowToHigh"}
-                  onChange={handleSelectChange}
-                />
-              </Label>
-            </SortingItem>
-            <SortingItem>
-              <Label htmlFor="highToLow">
-                <Span type="radio" active={selectedInput === "highToLow"}>
-                  <Icon name="check" width="10" height="8" />
-                </Span>
-                Price high to low
-                <StyledInput
-                  id="highToLow"
-                  type="radio"
-                  name="deneme"
-                  value="highToLow"
-                  checked={selectedInput === "highToLow"}
-                  onChange={handleSelectChange}
-                />
-              </Label>
-            </SortingItem>
-            <SortingItem>
-              <Label htmlFor="newToOld">
-                <Span type="radio" active={selectedInput === "newToOld"}>
-                  <Icon name="check" width="10" height="8" />
-                </Span>
-                New to old
-                <StyledInput
-                  id="newToOld"
-                  type="radio"
-                  name="sorting"
-                  value="newToOld"
-                  checked={selectedInput === "newToOld"}
-                  onChange={handleSelectChange}
-                />
-              </Label>
-            </SortingItem>
-            <SortingItem>
-              <Label htmlFor="oldToNew">
-                <Span type="radio" active={selectedInput === "oldToNew"}>
-                  <Icon name="check" width="10" height="8" />
-                </Span>
-                Old to new
-                <StyledInput
-                  id="oldToNew"
-                  type="radio"
-                  name="sorting"
-                  value="oldToNew"
-                  checked={selectedInput === "oldToNew"}
-                  onChange={handleSelectChange}
-                />
-              </Label>
-            </SortingItem>
+            {sortingListData?.map(({ id, title, value }) => (
+              <SortingItem key={id}>
+                <Label htmlFor={value}>
+                  <Span type="radio" active={selectedInput === value}>
+                    <Icon name="check" width="10" height="8" />
+                  </Span>
+                  {title}
+                  <StyledInput
+                    id={value}
+                    type="radio"
+                    name="sorting"
+                    value={value}
+                    checked={selectedInput === value}
+                    onChange={handleSelectChange}
+                  />
+                </Label>
+              </SortingItem>
+            ))}
           </ul>
         </div>
       </Card>
