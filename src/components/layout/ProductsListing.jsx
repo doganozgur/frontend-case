@@ -53,7 +53,7 @@ export default function ProductsListing() {
       <Products products={currentProducts} />
       <Pagination
         itemsPerPage={itemsPerPage}
-        totalPosts={items?.length}
+        totalPosts={filteredItems?.length}
         paginate={paginate}
         currentPage={currentPage}
       />

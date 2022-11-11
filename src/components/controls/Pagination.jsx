@@ -13,12 +13,12 @@ export default function Pagination({
   paginate,
   currentPage,
 }) {
-  const [isActive, setIsActive] = useState(false);
+  
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
-
+  console.log(pageNumbers);
   return (
     <PaginationWrapper>
       <Navigate
