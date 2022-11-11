@@ -1,7 +1,10 @@
 import { Icon } from "../../Icons";
 import { Counter, Number } from "../styles/ProductCounter.styled";
 import { useDispatch } from "react-redux";
-import { addToBasket, decreaseQuantity } from "../../features/basketSlice";
+import {
+  addToBasket,
+  decreaseQuantity,
+} from "../../redux/features/basketSlice";
 import { useSelector } from "react-redux";
 
 export default function ProductCounter({ added, cartQuantity }) {

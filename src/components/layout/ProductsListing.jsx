@@ -1,28 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Main, PillHolder, Title } from "../styles/ProductsListing";
-import { useItems } from "../../hooks/items/useItems";
 import Pagination from "../controls/Pagination";
 import Products from "./Products";
 import { PillStyled } from "../styles/Pill.styled";
+import { useSelector, useDispatch } from "react-redux";
+import { getItemsFetch } from "../../redux/features/itemsSlice";
 
 export default function ProductsListing() {
   const [category, setCategory] = useState("mug");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(16);
   const [selectedCategory, setSelectedCategory] = useState("mug");
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.items.items.items);
 
-  // Get items
-  const items = useItems();
-  const categories = [
-    ...new Set(items?.data?.items.map((item) => item.itemType)),
-  ];
+  useEffect(() => {
+    dispatch(getItemsFetch());
+  }, [dispatch]);
+
+  const categories = [...new Set(items?.map((item) => item.itemType))];
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const filteredItems = items?.data?.items?.filter(
-    (item) => item.itemType === category
-  );
-
-  console.log(filteredItems);
+  const filteredItems = items?.filter((item) => item.itemType === category);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
@@ -54,7 +53,7 @@ export default function ProductsListing() {
       <Products products={currentProducts} />
       <Pagination
         itemsPerPage={itemsPerPage}
-        totalPosts={items?.data?.items?.length}
+        totalPosts={items?.length}
         paginate={paginate}
         currentPage={currentPage}
       />

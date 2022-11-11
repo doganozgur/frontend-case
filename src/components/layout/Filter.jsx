@@ -1,19 +1,24 @@
 import { Card } from "../styles/Card";
 import { CardtTitle } from "../styles/CardTitle";
 import Combobox from "../controls/Combobox";
-import { useCompanies } from "../../hooks/companies/useCompanies";
-import { useItems } from "../../hooks/items/useItems";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCompaniesFetch } from "../../redux/features/companiesSlice";
 
 export default function Filter({ title }) {
-  const companies = useCompanies();
-  const items = useItems();
+  const items = useSelector((state) => state.items.items.items);
+  const dispatch = useDispatch();
+  const companies = useSelector((state) => state.companies?.items.companies);
+  useEffect(() => {
+    dispatch(getCompaniesFetch());
+  }, [dispatch]);
 
   function _decideData(title) {
     switch (title) {
       case "Brands":
-        return companies?.data?.companies;
+        return companies;
       case "Tags":
-        return items?.data?.items;
+        return items;
       default:
     }
   }

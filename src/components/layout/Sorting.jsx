@@ -35,22 +35,22 @@ export default function Sorting() {
         <div>
           <ul>
             {sortingListData?.map(({ id, title, value }) => (
-              <SortingItem key={id}>
-                <Label htmlFor={value}>
-                  <Span type="radio" active={selectedInput === value}>
-                    <Icon name="check" width="10" height="8" />
-                  </Span>
-                  {title}
-                  <StyledInput
-                    id={value}
-                    type="radio"
-                    name="sorting"
-                    value={value}
-                    checked={selectedInput === value}
-                    onChange={handleSelectChange}
-                  />
-                </Label>
-              </SortingItem>
+                <SortingItem key={id}>
+                  <Label htmlFor={value}>
+                    <Span type="radio" active={selectedInput === value}>
+                      <Icon name="check" width="10" height="8" />
+                    </Span>
+                    {title}
+                    <StyledInput
+                      id={value}
+                      type="radio"
+                      name="sorting"
+                      value={value}
+                      checked={selectedInput === value}
+                      onChange={handleSelectChange}
+                    />
+                  </Label>
+                </SortingItem>
             ))}
           </ul>
         </div>

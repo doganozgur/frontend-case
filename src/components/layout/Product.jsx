@@ -8,7 +8,7 @@ import {
   Title,
 } from "../styles/Product.styled";
 import { useDispatch } from "react-redux";
-import { addToBasket } from "../../features/basketSlice";
+import { addToBasket } from "../../redux/features/basketSlice";
 
 export default function Product({ productInfo }) {
   const dispatch = useDispatch();
