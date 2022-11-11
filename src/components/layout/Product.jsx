@@ -7,9 +7,23 @@ import {
   Price,
   Title,
 } from "../styles/Product.styled";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../../features/basketSlice";
 
 export default function Product({ productInfo }) {
-  const { price, name } = productInfo;
+  const dispatch = useDispatch();
+
+  const { added, name, price } = productInfo;
+
+  const addItemToBasket = () => {
+    const product = {
+      added,
+      name,
+      price,
+    };
+    dispatch(addToBasket(product));
+  };
+
   return (
     <ProductStyled>
       <ImageContainer>
@@ -17,7 +31,9 @@ export default function Product({ productInfo }) {
       </ImageContainer>
       <Price>₺ {price}</Price>
       <Title>{name}</Title>
-      <Button variant="wide">Add</Button>
+      <Button variant="wide" onClick={addItemToBasket}>
+        Add
+      </Button>
     </ProductStyled>
   );
 }

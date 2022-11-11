@@ -2,12 +2,12 @@ import { Price } from "../styles/Basket.styled";
 import { Product } from "../styles/Basket.styled";
 import ProductCounter from "./ProductCounter";
 
-export default function BasketProduct() {
+export default function BasketProduct({ name, price }) {
   return (
     <Product>
       <div>
-        <p>Example Product</p>
-        <Price>₺14,99</Price>
+        <p>{name}</p>
+        <Price>₺ {price}</Price>
       </div>
       <ProductCounter />
     </Product>
