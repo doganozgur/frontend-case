@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Pill from "../controls/Pill";
 import { Main, PillHolder, Title } from "../styles/ProductsListing";
 import { useItems } from "../../hooks/items/useItems";
@@ -6,15 +6,13 @@ import Pagination from "../controls/Pagination";
 import Products from "./Products";
 
 export default function ProductsListing() {
-  const [active, setActive] = useState("active");
+  const [active] = useState("active");
   // const [currentProducts, setCurrentProducts] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(16);
 
   // Get items
   const items = useItems();
-
-  console.log(items);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;

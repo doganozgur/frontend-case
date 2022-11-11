@@ -9,14 +9,39 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     addToBasket: (state, action) => {
-      state.items = [...state.items, action.payload];
+      const existingIndex = state.items.findIndex(
+        (item) => item.added === action.payload.added
+      );
+      console.log(existingIndex);
+      if (existingIndex >= 0) {
+        state.items[existingIndex] = {
+          ...state.items[existingIndex],
+          cartQuantity: state.items[existingIndex].cartQuantity + 1,
+        };
+      } else {
+        let tempProduct = { ...action.payload, cartQuantity: 1 };
+        state.items.push(tempProduct);
+      }
     },
-    removeFromBasket: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload.id);
+    decreaseQuantity: (state, action) => {
+      const itemIndex = state.items.findIndex(
+        (item) => item.added === action.payload.added
+      );
+
+      if (state.items[itemIndex].cartQuantity > 1) {
+        state.items[itemIndex].cartQuantity -= 1;
+      } else if (state.items[itemIndex].cartQuantity === 1) {
+        const newCartItems = state.items.filter(
+          (item) => item.added !== action.payload.added
+        );
+        console.log(newCartItems);
+        state.items = newCartItems;
+        
+      }
     },
   },
 });
 
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, decreaseQuantity } = basketSlice.actions;
 
 export default basketSlice.reducer;

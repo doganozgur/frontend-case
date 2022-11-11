@@ -8,7 +8,12 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const items = useSelector((state) => state.basket.items);
-  const price = items.reduce((a, v) => (a = a + v.price), 0);
+  const price = items.reduce(
+    (previousValue, currentValue) =>
+      (previousValue =
+        previousValue + currentValue.price * currentValue.cartQuantity),
+    0
+  );
 
   return (
     <StyledHeader>

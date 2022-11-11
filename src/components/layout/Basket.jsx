@@ -4,13 +4,23 @@ import { useSelector } from "react-redux";
 
 export default function Basket() {
   const items = useSelector((state) => state.basket.items);
-  const price = items.reduce((a, v) => (a = a + v.price), 0);
-  console.log(items);
+  const price = items.reduce(
+    (previousValue, currentValue) =>
+      (previousValue =
+        previousValue + currentValue.price * currentValue.cartQuantity),
+    0
+  );
 
   return (
     <BasketContainer>
-      {items.map(({ name, price }) => (
-        <BasketProduct name={name} price={price} />
+      {items.map(({ added, name, price, cartQuantity }) => (
+        <BasketProduct
+          key={added}
+          added={added}
+          name={name}
+          price={price}
+          cartQuantity={cartQuantity}
+        />
       ))}
       <TotalPrice>₺ {price.toFixed(2)}</TotalPrice>
     </BasketContainer>
