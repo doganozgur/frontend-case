@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
+// Themes
 const theme = {
   colors: {
     primary: "#1EA4CE",
@@ -23,6 +24,12 @@ const theme = {
     clrNeutral900: "#697488",
     clrPurple100: "#F2F0FD",
     clrPurple200: "#F3F0FE",
+  },
+  screens: {
+    sm: "40rem",
+    md: "48rem",
+    lg: "64rem",
+    xl: "80rem",
   },
   fontFamily: {
     body: "'Open Sans', sans-serif",

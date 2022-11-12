@@ -14,14 +14,31 @@ export const filterSlice = createSlice({
       state.sortValue = action.payload;
     },
     brandsFilter: (state, action) => {
-      const currentItem = state.brands.findIndex(
-        (item, i) => item[i] === action.payload[i]
+      const existingIndex = state.brands.findIndex(
+        (item) => item.account === action.payload.account
       );
-      console.log(currentItem);
-      state.brands = [...state.brands, action.payload];
+      if (existingIndex >= 0) {
+        const newBrandItems = state.brands.filter(
+          (brand) => brand.account !== action.payload.account
+        );
+        state.brands = newBrandItems;
+      } else {
+        state.brands = [...state.brands, action.payload];
+      }
+
     },
     tagsFilter: (state, action) => {
-      state.tags = [...state.tags, action.payload];
+      const existingIndex = state.tags.findIndex(
+        (item) => item.i === action.payload.i
+      );
+      if (existingIndex >= 0) {
+        const newTags = state.tags.filter(
+          (brand) => brand.i !== action.payload.i
+        );
+        state.tags = newTags;
+      } else {
+        state.tags = [...state.tags, action.payload];
+      }
     },
   },
 });

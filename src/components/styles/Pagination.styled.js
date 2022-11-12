@@ -11,7 +11,10 @@ export const PaginationList = styled.ul`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  padding-inline: 3.5rem;
+  padding-inline: 1rem;
+  @media (min-width: ${({ theme }) => theme.screens.sm}) {
+    padding-inline: 3.5rem;
+  }
 `;
 
 export const ListItem = styled.li`

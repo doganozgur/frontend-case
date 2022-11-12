@@ -1,8 +1,8 @@
 /**
  * @func sortAlphabetically
  * Sort the list alphabetically
- * @param {*} list
- * @returns Alphabetically sorted list
+ * @param {array} list List of tags
+ * @returns {array} Alphabetically sorted list
  */
 export const sortAlphabetically = (list) => {
   return list.sort((a, b) => {
@@ -18,6 +18,12 @@ export const sortAlphabetically = (list) => {
   });
 };
 
+/**
+ * @func getTagnames Function that collects unique tag names from the product list and returns as array
+ * @param {array} options List that contains product details
+ * @param {string} title String to decide to run function if current options are "Tags"
+ * @returns {array} An array of list containing tags of the products
+ */
 export const getTagNames = (options, title) => {
   const tags = [];
   title === "Tags" &&
@@ -30,3 +36,12 @@ export const getTagNames = (options, title) => {
     });
   return tags;
 };
+
+/**
+ * @func getWindowSize
+ * @returns Returns the current width of the window element
+ */
+export function getWindowSize() {
+  const { innerWidth: width } = window;
+  return { width };
+}

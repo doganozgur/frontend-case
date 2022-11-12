@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../../Icons";
+import { getWindowSize } from "../../utils";
 import {
   ListItem,
   Navigate,
@@ -13,7 +14,17 @@ export default function Pagination({
   paginate,
   currentPage,
 }) {
-  
+  const [windowWidth, setWindowWidth] = useState(getWindowSize());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(getWindowSize());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  console.log(windowWidth.width);
+
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / itemsPerPage); i++) {
     pageNumbers.push(i);
@@ -29,25 +40,29 @@ export default function Pagination({
         <Icon name="arrowLeft" /> Prev
       </Navigate>
       <PaginationList>
-        {pageNumbers?.slice(0, 4).map((number, i) => (
-          <ListItem
-            key={i}
-            isActive={number === currentPage}
-            onClick={() => paginate(number)}
-          >
-            {number}
-          </ListItem>
-        ))}{" "}
+        {pageNumbers
+          ?.slice(0, windowWidth.width > 768 ? 4 : 2)
+          .map((number, i) => (
+            <ListItem
+              key={i}
+              isActive={number === currentPage}
+              onClick={() => paginate(number)}
+            >
+              {number}
+            </ListItem>
+          ))}{" "}
         <ListItem>...</ListItem>{" "}
-        {pageNumbers?.slice(-4).map((number, i) => (
-          <ListItem
-            key={i}
-            isActive={number === currentPage}
-            onClick={() => paginate(number)}
-          >
-            {number}
-          </ListItem>
-        ))}
+        {pageNumbers
+          ?.slice(windowWidth.width > 768 ? -4 : -2)
+          .map((number, i) => (
+            <ListItem
+              key={i}
+              isActive={number === currentPage}
+              onClick={() => paginate(number)}
+            >
+              {number}
+            </ListItem>
+          ))}
       </PaginationList>
       <Navigate
         type="next"

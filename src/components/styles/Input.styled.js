@@ -23,8 +23,7 @@ export const Span = styled.span`
   border-color: ${({ theme, active }) => active && ` ${theme.colors.primary}`};
   svg path {
     display: ${({ active }) => !active && "none"};
-    stroke: ${({ theme, type, active }) =>
-      type === "checkbox" && active && "#fff"};
+    stroke: ${({ type, active }) => type === "checkbox" && active && "#fff"};
   }
   background-color: ${({ theme, type, active }) =>
     type === "checkbox" && active && theme.colors.primary};

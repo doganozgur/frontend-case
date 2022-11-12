@@ -3,16 +3,24 @@ import styled from "styled-components";
 export const StyledApp = styled.div`
   margin-top: 3.085rem;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  flex-direction: column-reverse;
+  gap: 2rem;
+  > * {
+    flex: 1 1 100%;
+  }
 
-  > :nth-child(1) {
-    flex: 1;
-  }
-  > :nth-child(2) {
-    flex: 2;
-  }
-  > :nth-child(3) {
-    flex: 1;
+  @media (min-width: ${({ theme }) => theme.screens.sm}) {
+    gap: 1rem;
+    align-items: flex-start;
+    flex-direction: row;
+    > :nth-child(1) {
+      flex: 1;
+    }
+    > :nth-child(2) {
+      flex: 2;
+    }
+    > :nth-child(3) {
+      flex: 1;
+    }
   }
 `;

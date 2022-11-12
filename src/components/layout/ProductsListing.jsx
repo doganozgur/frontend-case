@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Main, PillHolder, Title } from "../styles/ProductsListing";
 import Pagination from "../controls/Pagination";
 import Products from "./Products";
@@ -11,7 +11,6 @@ export default function ProductsListing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(16);
   const [selectedCategory, setSelectedCategory] = useState("mug");
-  const [selectedFilters, setSelectedFilters] = useState();
 
   const dispatch = useDispatch();
 
@@ -19,13 +18,14 @@ export default function ProductsListing() {
   const filters = useSelector((state) => state.filter);
 
   useEffect(() => {
-    setSelectedFilters(filters);
     dispatch(getItemsFetch());
   }, [dispatch, filters]);
 
-  console.log(selectedFilters);
   // Available categories
-  const itemTypes = [...new Set(items?.map((item) => item.itemType))];
+  const itemTypes = useMemo(() => {
+    return [...new Set(items?.map((item) => item.itemType))];
+  }, [items]);
+
   // Product list paginate function
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   // Filter by itemType
@@ -47,8 +47,30 @@ export default function ProductsListing() {
     }
   }
 
-  console.log(filters);
+  // Filter by brands
+  // function _filterByBrands(items) {
+  //   // const brands = filters.brands.map((brand) => brand.slug.toLowerCase());
+  //   // let result = items?.filter(
+  //   //   (item) => item.slug === "weissnat-schowalter-and-koelpin"
+  //   // );
+  //   // let result = items?.map((item) => {
+  //   //   return brands?.find((elem) => elem === item.slug);
+  //   // });
+  //   // let result = items?.map((item) => {
+  //   //   return brands?.some((elem) => elem === item.slug);
+  //   // });
+  //   // let result = brands.includes("Weissnat-Schowalter-and-Koelpin");
+  //   // let result = items?.filter((item) => {
+  //   //   if(item.slug)
+  //   // });
+
+  //   console.log("brands", brands);
+  //   console.log("items", items);
+  //   console.log("result", result);
+  // }
+
   _sortBy(filteredItems);
+  // _filterByBrands(filteredItems);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
@@ -57,7 +79,7 @@ export default function ProductsListing() {
     indexOfLastPost
   );
   return (
-    <Main>
+    <main>
       <Title>Products</Title>
       {/* Filter by itemType */}
       <PillHolder>
@@ -83,6 +105,6 @@ export default function ProductsListing() {
         paginate={paginate}
         currentPage={currentPage}
       />
-    </Main>
+    </main>
   );
 }

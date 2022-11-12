@@ -8,14 +8,18 @@ import { useDispatch } from "react-redux";
 import { brandsFilter, tagsFilter } from "../../redux/features/filterSlice";
 
 export default function Combobox({ type, options, title }) {
+  // Search term on filter
   const [searchTerm, setSearchTerm] = useState("");
+  // Setting active props to the filter list items
   const [selectedInputs, setSelectedInputs] = useState([]);
   const dispatch = useDispatch();
-
+  // Tags from util function
   const tags = getTagNames(options, title);
+  // Tags ordered by alphabetically
   const orderedTags = useMemo(() => {
     return sortAlphabetically(tags);
   }, [tags]);
+  console.log(options);
 
   /**
    * @func handleSelectChange
@@ -24,6 +28,7 @@ export default function Combobox({ type, options, title }) {
    */
   const handleSelectChange = (event) => {
     const value = event.target.value;
+    console.log(selectedInputs);
     setSelectedInputs(
       selectedInputs.includes(value)
         ? selectedInputs.filter((i) => i !== value)
@@ -37,24 +42,20 @@ export default function Combobox({ type, options, title }) {
     setSearchTerm(value);
   };
 
-  // Filter by brands
-  function handleBrandsFilter(e) {
-    if (e.target.value !== undefined) {
-      dispatch(brandsFilter(e.target.value));
-    }
+  // Dispatch brands filtering action
+  function handleBrandsFilter(account, slug) {
+    dispatch(brandsFilter({ account, slug }));
   }
 
-  // Filter by tags
-  function handleTagsFilter(e) {
-    if (e.target.value !== undefined) {
-      dispatch(tagsFilter(e.target.value));
-    }
+  // Dispatch tags filtering action
+  function handleTagsFilter(name, i) {
+    dispatch(tagsFilter({ name, i }));
   }
   return (
     <ComboboxStyled>
       {/* Search bar */}
       <Searcbar onChange={handleChange} placeholder={`Search ${title}`} />
-      {/* Brands listing */}
+      {/* Filter */}
       <ul>
         <SortingItem>
           <Label htmlFor="all">
@@ -62,18 +63,18 @@ export default function Combobox({ type, options, title }) {
               <Icon name="check" width="10" height="8" />
             </Span>
             All
-            <StyledInput
-              id="all"
-              type={type}
-              name="brand"
-              value="all"
-              checked={selectedInputs === "all"}
-              onChange={handleSelectChange}
-            />
           </Label>
+          <StyledInput
+            id="all"
+            type={type}
+            name="brand"
+            value="all"
+            checked={selectedInputs === "all"}
+            onChange={handleSelectChange}
+          />
         </SortingItem>
-        {/* Match search term concurrently with the list data */}
         {title === "Brands" &&
+          // Match search term concurrently with the list data
           options
             ?.filter((val) => {
               if (searchTerm === "") {
@@ -83,25 +84,30 @@ export default function Combobox({ type, options, title }) {
               )
                 return val;
             })
-            .map(({ account, name, slug, added }) => (
-              <SortingItem key={account || added}>
-                <Label htmlFor={account || added} onClick={handleBrandsFilter}>
+            // Map through filtered list data
+            .map(({ account, name, slug }) => (
+              <SortingItem key={account}>
+                <Label
+                  htmlFor={account}
+                  onClick={() => handleBrandsFilter(account, slug)}
+                >
                   <Span type={type} active={selectedInputs.includes(slug)}>
                     <Icon name="check" width="10" height="8" />
                   </Span>
                   {name}
-                  <StyledInput
-                    id={account || added}
-                    type={type}
-                    name="brand"
-                    value={slug}
-                    checked={selectedInputs.includes(slug)}
-                    onChange={handleSelectChange}
-                  />
                 </Label>
+                <StyledInput
+                  id={account}
+                  type={type}
+                  name="brand"
+                  value={slug}
+                  checked={selectedInputs.includes(slug)}
+                  onChange={handleSelectChange}
+                />
               </SortingItem>
             ))}
-        {title === "Tags" && orderedTags ? (
+        {title === "Tags" &&
+          // Match search term concurrently with the list data
           orderedTags
             ?.filter((val) => {
               if (searchTerm === "") {
@@ -109,27 +115,25 @@ export default function Combobox({ type, options, title }) {
               } else if (val.toLowerCase().includes(searchTerm.toLowerCase()))
                 return val;
             })
+            // Map through filtered list data
             .map((name, i) => (
               <SortingItem key={i}>
-                <Label htmlFor={i} onClick={handleTagsFilter}>
+                <Label htmlFor={i} onClick={() => handleTagsFilter(name, i)}>
                   <Span type={type} active={selectedInputs.includes(name)}>
                     <Icon name="check" width="10" height="8" />
                   </Span>
                   {name}
-                  <StyledInput
-                    id={i}
-                    type={type}
-                    name="tag"
-                    value={name}
-                    checked={selectedInputs.includes(name)}
-                    onChange={handleSelectChange}
-                  />
                 </Label>
+                <StyledInput
+                  id={i}
+                  type={type}
+                  name="tag"
+                  value={name}
+                  checked={selectedInputs.includes(name)}
+                  onChange={handleSelectChange}
+                />
               </SortingItem>
-            ))
-        ) : (
-          <div>Loading...</div>
-        )}
+            ))}
       </ul>
     </ComboboxStyled>
   );

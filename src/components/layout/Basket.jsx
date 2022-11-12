@@ -13,16 +13,20 @@ export default function Basket() {
 
   return (
     <BasketContainer>
-      {items.map(({ added, name, price, cartQuantity }) => (
-        <BasketProduct
-          key={added}
-          added={added}
-          name={name}
-          price={price}
-          cartQuantity={cartQuantity}
-        />
-      ))}
-      <TotalPrice>₺ {price.toFixed(2)}</TotalPrice>
+      {items.length > 0 ? (
+        items.map(({ added, name, price, cartQuantity }) => (
+          <BasketProduct
+            key={added}
+            added={added}
+            name={name}
+            price={price}
+            cartQuantity={cartQuantity}
+          />
+        ))
+      ) : (
+        <div>Basket is empty.</div>
+      )}
+      {items.length > 0 ? <TotalPrice>₺ {price.toFixed(2)}</TotalPrice> : ""}
     </BasketContainer>
   );
 }

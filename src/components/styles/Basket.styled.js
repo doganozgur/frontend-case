@@ -3,9 +3,12 @@ import styled from "styled-components";
 export const BasketContainer = styled.aside`
   border: 0.5rem solid ${({ theme }) => theme.colors.primary};
   background-color: ${({ theme }) => theme.colors.clrWhite};
-  padding: 1.625rem 1.625rem 1rem 1.375rem;
-  display: flex;
+  padding: 1.625rem;
+  display: none;
   flex-direction: column;
+  @media (min-width: ${({ theme }) => theme.screens.lg}) {
+    display: flex;
+  }
 `;
 
 export const Product = styled.div`

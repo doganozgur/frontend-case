@@ -6,8 +6,9 @@ export const ImageContainer = styled.div`
   border-radius: 0.75rem;
   border: 1px solid ${({ theme }) => theme.colors.clrPurple200};
   padding: 1rem;
+  cursor: pointer;
 
-  @media (min-width: 64rem) {
+  @media (min-width: ${({ theme }) => theme.screens.lg}) {
     height: 124px;
   }
 `;
@@ -28,4 +29,5 @@ export const Title = styled.p`
   margin-block-end: 0.5625rem;
   font-weight: 600;
   height: 2.5rem;
+  cursor: pointer;
 `;

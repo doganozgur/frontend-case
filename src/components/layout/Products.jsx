@@ -4,9 +4,13 @@ import Product from "./Product";
 export default function Products({ products }) {
   return (
     <ProductsCard>
-      {products?.map((item) => (
-        <Product key={item?.added} productInfo={item} />
-      ))}
+      {products ? (
+        products?.map((item) => (
+          <Product key={item?.added} productInfo={item} />
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
     </ProductsCard>
   );
 }
