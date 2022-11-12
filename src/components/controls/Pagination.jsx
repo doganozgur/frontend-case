@@ -18,7 +18,6 @@ export default function Pagination({
   for (let i = 1; i <= Math.ceil(totalPosts / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
-  console.log(pageNumbers);
   return (
     <PaginationWrapper>
       <Navigate

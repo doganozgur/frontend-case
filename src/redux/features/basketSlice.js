@@ -12,7 +12,6 @@ export const basketSlice = createSlice({
       const existingIndex = state.items.findIndex(
         (item) => item.added === action.payload.added
       );
-      console.log(existingIndex);
       if (existingIndex >= 0) {
         state.items[existingIndex] = {
           ...state.items[existingIndex],
@@ -34,9 +33,7 @@ export const basketSlice = createSlice({
         const newCartItems = state.items.filter(
           (item) => item.added !== action.payload.added
         );
-        console.log(newCartItems);
         state.items = newCartItems;
-        
       }
     },
   },

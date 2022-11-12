@@ -4,6 +4,8 @@ import { CardtTitle } from "../styles/CardTitle";
 import { useState } from "react";
 import { Label, Span, StyledInput } from "../styles/Input.styled";
 import { Icon } from "../../Icons";
+import { useDispatch, useSelector } from "react-redux";
+import { sortBy } from "../../redux/features/filterSlice";
 
 // Sorting list data
 const sortingListData = [
@@ -16,7 +18,15 @@ const sortingListData = [
 const title = "Sorting";
 
 export default function Sorting() {
-  const [selectedInput, setSelectedInput] = useState("newToOld");
+  const sortValue = useSelector((state) => state.filter.sortValue);
+  const [selectedInput, setSelectedInput] = useState(sortValue);
+  const dispatch = useDispatch();
+
+  function handleSort(e) {
+    if (e.target.value !== undefined) {
+      dispatch(sortBy(e.target.value));
+    }
+  }
 
   /**
    * @func handleSelectChange
@@ -35,22 +45,22 @@ export default function Sorting() {
         <div>
           <ul>
             {sortingListData?.map(({ id, title, value }) => (
-                <SortingItem key={id}>
-                  <Label htmlFor={value}>
-                    <Span type="radio" active={selectedInput === value}>
-                      <Icon name="check" width="10" height="8" />
-                    </Span>
-                    {title}
-                    <StyledInput
-                      id={value}
-                      type="radio"
-                      name="sorting"
-                      value={value}
-                      checked={selectedInput === value}
-                      onChange={handleSelectChange}
-                    />
-                  </Label>
-                </SortingItem>
+              <SortingItem key={id}>
+                <Label htmlFor={value} onClick={handleSort}>
+                  <Span type="radio" active={sortValue === value}>
+                    <Icon name="check" width="10" height="8" />
+                  </Span>
+                  {title}
+                  <StyledInput
+                    id={value}
+                    type="radio"
+                    name="sorting"
+                    value={value}
+                    checked={sortValue === value}
+                    onChange={handleSelectChange}
+                  />
+                </Label>
+              </SortingItem>
             ))}
           </ul>
         </div>

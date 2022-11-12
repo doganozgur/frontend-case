@@ -4,10 +4,13 @@ import { ComboboxStyled, Searcbar } from "../styles/Combobox";
 import { Label, Span, StyledInput } from "../styles/Input.styled";
 import { SortingItem } from "../styles/SortingItem";
 import { getTagNames, sortAlphabetically } from "../../utils";
+import { useDispatch } from "react-redux";
+import { brandsFilter, tagsFilter } from "../../redux/features/filterSlice";
 
 export default function Combobox({ type, options, title }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedInputs, setSelectedInputs] = useState([]);
+  const dispatch = useDispatch();
 
   const tags = getTagNames(options, title);
   const orderedTags = useMemo(() => {
@@ -34,6 +37,19 @@ export default function Combobox({ type, options, title }) {
     setSearchTerm(value);
   };
 
+  // Filter by brands
+  function handleBrandsFilter(e) {
+    if (e.target.value !== undefined) {
+      dispatch(brandsFilter(e.target.value));
+    }
+  }
+
+  // Filter by tags
+  function handleTagsFilter(e) {
+    if (e.target.value !== undefined) {
+      dispatch(tagsFilter(e.target.value));
+    }
+  }
   return (
     <ComboboxStyled>
       {/* Search bar */}
@@ -69,7 +85,7 @@ export default function Combobox({ type, options, title }) {
             })
             .map(({ account, name, slug, added }) => (
               <SortingItem key={account || added}>
-                <Label htmlFor={account || added}>
+                <Label htmlFor={account || added} onClick={handleBrandsFilter}>
                   <Span type={type} active={selectedInputs.includes(slug)}>
                     <Icon name="check" width="10" height="8" />
                   </Span>
@@ -95,7 +111,7 @@ export default function Combobox({ type, options, title }) {
             })
             .map((name, i) => (
               <SortingItem key={i}>
-                <Label htmlFor={i}>
+                <Label htmlFor={i} onClick={handleTagsFilter}>
                   <Span type={type} active={selectedInputs.includes(name)}>
                     <Icon name="check" width="10" height="8" />
                   </Span>

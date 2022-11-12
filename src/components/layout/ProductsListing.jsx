@@ -7,21 +7,48 @@ import { useSelector, useDispatch } from "react-redux";
 import { getItemsFetch } from "../../redux/features/itemsSlice";
 
 export default function ProductsListing() {
-  const [category, setCategory] = useState("mug");
+  const [itemType, setItemType] = useState("mug");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(16);
   const [selectedCategory, setSelectedCategory] = useState("mug");
+  const [selectedFilters, setSelectedFilters] = useState();
+
   const dispatch = useDispatch();
+
   const items = useSelector((state) => state.items.items.items);
+  const filters = useSelector((state) => state.filter);
 
   useEffect(() => {
+    setSelectedFilters(filters);
     dispatch(getItemsFetch());
-  }, [dispatch]);
+  }, [dispatch, filters]);
 
-  const categories = [...new Set(items?.map((item) => item.itemType))];
-
+  console.log(selectedFilters);
+  // Available categories
+  const itemTypes = [...new Set(items?.map((item) => item.itemType))];
+  // Product list paginate function
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const filteredItems = items?.filter((item) => item.itemType === category);
+  // Filter by itemType
+  const filteredItems = items?.filter((item) => item.itemType === itemType);
+
+  // Sort items
+  function _sortBy(items) {
+    switch (filters.sortValue) {
+      case "newToOld":
+        return items?.sort((a, b) => b.added - a.added);
+      case "oldToNew":
+        return items?.sort((a, b) => a.added - b.added);
+      case "lowToHigh":
+        return items?.sort((a, b) => a.price - b.price);
+      case "highToLow":
+        return items?.sort((a, b) => b.price - a.price);
+      default:
+        return items;
+    }
+  }
+
+  console.log(filters);
+  _sortBy(filteredItems);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
@@ -29,22 +56,21 @@ export default function ProductsListing() {
     indexOfFirstPost,
     indexOfLastPost
   );
-
   return (
     <Main>
       <Title>Products</Title>
-      {/* Filter by category */}
+      {/* Filter by itemType */}
       <PillHolder>
-        {categories?.map((category, _i) => (
+        {itemTypes?.map((itemType, _i) => (
           <li key={_i}>
             <PillStyled
-              active={selectedCategory === category}
+              active={selectedCategory === itemType}
               onClick={() => {
-                setCategory(category);
-                setSelectedCategory(category);
+                setItemType(itemType);
+                setSelectedCategory(itemType);
               }}
             >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              {itemType.charAt(0).toUpperCase() + itemType.slice(1)}
             </PillStyled>
           </li>
         ))}
