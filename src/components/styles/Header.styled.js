@@ -11,7 +11,7 @@ export const StyledHeader = styled.header`
 export const Nav = styled.nav`
   display: flex;
   justify-content: flex-start;
-  @media (${({ theme }) => theme.screens.sm}) {
+  @media (min-width: ${({ theme }) => theme.screens.sm}) {
     justify-content: center;
   }
   align-items: center;
