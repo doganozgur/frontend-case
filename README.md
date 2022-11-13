@@ -9,5 +9,5 @@ npm install
 npm run dev
 ```
 
-### On completion status of the project
+### About the completion
 I faced an issue building brands and tags filtering section functionality. Although I had the data and the rest was simply filtering two arrays, a problem appeared that I could not fixed up until now. I have a guess that It might be related to asynschronous fetch from Saga, I will be further checking and updating on GitHub.
